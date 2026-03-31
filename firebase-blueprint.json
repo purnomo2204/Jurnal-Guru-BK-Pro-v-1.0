@@ -1,0 +1,127 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Data profil siswa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "className": { "type": "string" },
+        "nis": { "type": "string" },
+        "nisn": { "type": "string" }
+      },
+      "required": ["id", "name", "className"]
+    },
+    "CounselingLog": {
+      "title": "Counseling Log",
+      "description": "Catatan konseling siswa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string" },
+        "aspect": { "type": "string" },
+        "result": { "type": "string" }
+      },
+      "required": ["id", "studentId", "date"]
+    },
+    "Group": {
+      "title": "Group",
+      "description": "Grup bimbingan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "studentIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "name"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Pesan obrolan publik antar guru",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "sender": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "required": ["text", "sender", "type"]
+    },
+    "SharedItem": {
+      "title": "Shared Item",
+      "description": "Item yang dibagikan antar guru",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string" },
+        "author": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "title", "type", "author", "content"]
+    },
+    "Sociometry": {
+      "title": "Sociometry",
+      "description": "Data sosiometri siswa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "className": { "type": "string" },
+        "surveyDate": { "type": "string" },
+        "criteria": { "type": "string" },
+        "choices": { "type": "array", "items": { "type": "object" } }
+      },
+      "required": ["id", "className", "surveyDate", "criteria", "choices"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Notifikasi untuk guru BK",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "scheduledTime": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "type": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "message", "type"]
+    }
+  },
+  "firestore": {
+    "/teachers/{nip}/students/{studentId}": {
+      "schema": "Student",
+      "description": "Koleksi data siswa per guru"
+    },
+    "/teachers/{nip}/logs/{logId}": {
+      "schema": "CounselingLog",
+      "description": "Koleksi catatan konseling per guru"
+    },
+    "/teachers/{nip}/groups/{groupId}": {
+      "schema": "Group",
+      "description": "Koleksi grup bimbingan per guru"
+    },
+    "/public_chat/{msgId}": {
+      "schema": "ChatMessage",
+      "description": "Koleksi pesan obrolan publik"
+    },
+    "/shared_items/{itemId}": {
+      "schema": "SharedItem",
+      "description": "Koleksi item yang dibagikan"
+    },
+    "/teachers/{nip}/sociometry/{sociometryId}": {
+      "schema": "Sociometry",
+      "description": "Koleksi data sosiometri per guru"
+    },
+    "/teachers/{nip}/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Koleksi notifikasi per guru"
+    }
+  }
+}
